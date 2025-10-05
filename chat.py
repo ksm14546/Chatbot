@@ -18,28 +18,31 @@ def get_gemini_response(question):
 
 st.set_page_config(page_title="Q&A BOT")
 st.markdown(
-    "<h1 style='text-align: center; color: #B78700; font-family: Arial;'>SYF BOT 🏦</h1>",
+    "<h1 style='text-align: center; color: #B78700; font-family: Arial;'>CHAT BOT 🏦</h1>",
     unsafe_allow_html=True
 )
 
 if 'chat_history' not in st.session_state:
     st.session_state['chat_history'] = []
 
-user_input = st.text_input("" , key="user_input")
+user_input =st.text_input("",placeholder="Type here..." , key="user_input")
 submit = st.button("Submit")
 
 if submit and user_input :
     respone = get_gemini_response(user_input)
-    st.session_state['chat_history'].append(("You",user_input))
+    st.session_state['chat_history'].append(("👨‍💻",user_input))
     st.subheader("Response")
     for chunk in respone:
         st.write(chunk.text)
-        st.session_state['chat_history'].append(("Bot",chunk.text))
+        st.session_state['chat_history'].append(("🗿",chunk.text))
 st.subheader("Chat History :")
 
 for role,text in st.session_state['chat_history']:
     st.write(f"{role}:{text}")
 
-if st.button("Clear Chat History"):
-    st.session_state['chat_history'] = []
-    st.rerun()
+with st.sidebar:
+    st.title("Chat Settings")
+    if st.button("Clear Chat History"):
+        st.session_state['chat_history'] = []
+        st.rerun()
+    
